@@ -1,0 +1,99 @@
+{% extends "base.html" %}
+
+{% block title %}CareLink - Learn{% endblock %}
+
+{% block content %}
+<div class="container my-4">
+    <h2 class="text-center mb-4">Interactive Learning Module</h2>
+
+    <div class="row">
+        <!-- Progress Sidebar (Collapsible on mobile) -->
+        <div class="col-12 col-md-3 order-1 order-md-1 mb-3">
+            <details class="d-block d-md-none mb-3">
+                <summary class="fw-bold mb-2">Progress Overview</summary>
+                <div class="progress mb-2" style="height: 20px;">
+                    <div class="progress-bar bg-primary" role="progressbar" style="width: 60%;">60%</div>
+                </div>
+                <ul class="list-unstyled small">
+                    <li><span class="badge bg-primary me-2">&nbsp;</span>Seizure Types</li>
+                    <li><span class="badge bg-secondary me-2">&nbsp;</span>Signs & Symptoms</li>
+                    <li><span class="badge bg-secondary me-2">&nbsp;</span>Responses</li>
+                </ul>
+            </details>
+
+            <!-- Visible on medium+ screens -->
+            <div class="d-none d-md-block">
+                <h5>Progress</h5>
+                <div class="progress mb-2" style="height: 20px;">
+                    <div class="progress-bar bg-primary" role="progressbar" style="width: 60%;">60%</div>
+                </div>
+                <ul class="list-unstyled small">
+                    <li><span class="badge bg-primary me-2">&nbsp;</span>Seizure Types</li>
+                    <li><span class="badge bg-secondary me-2">&nbsp;</span>Signs & Symptoms</li>
+                    <li><span class="badge bg-secondary me-2">&nbsp;</span>Responses</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Learning Content Area -->
+        <div class="col-12 col-md-9 order-2 order-md-2">
+
+            <!-- Section 1 -->
+            <div class="card mb-4">
+                <div class="card-body">
+                    <h5 class="card-title">Seizure Types</h5>
+                    <ul>
+                        <li>Focal (Partial) Seizures</li>
+                        <li>Generalized Seizures</li>
+                        <li>Absence Seizures</li>
+                        <li>Tonic-Clonic Seizures</li>
+                        <li>Myoclonic & Atonic Seizures</li>
+                    </ul>
+                    <div class="d-flex flex-column flex-md-row gap-2 mt-2">
+                        <a href="{{ url_for('video', section='seizure') }}" class="btn btn-outline-primary">Watch Video</a>
+                        <a href="{{ url_for('infographic', section='seizure') }}" class="btn btn-outline-secondary">View Infographic</a>
+                        <a href="{{ url_for('cards', section='seizure') }}" class="btn btn-outline-success">Interactive Cards</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section 2 -->
+            <div class="card mb-4">
+                <div class="card-body">
+                    <h5 class="card-title">Signs and Symptoms</h5>
+                    <ul>
+                        <li>Physical Signs (e.g. convulsions)</li>
+                        <li>Sensory Signs (e.g. hallucinations)</li>
+                        <li>Emotional Changes (e.g. fear)</li>
+                    </ul>
+                    <div class="d-flex flex-column flex-md-row gap-2 mt-2">
+                        <a href="{{ url_for('video', section='signs') }}" class="btn btn-outline-primary">Watch Video</a>
+                        <a href="{{ url_for('infographic', section='signs') }}" class="btn btn-outline-secondary">View Infographic</a>
+                        <a href="{{ url_for('cards', section='signs') }}" class="btn btn-outline-success">Interactive Cards</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section 3 -->
+            <div class="card mb-4">
+                <div class="card-body">
+                    <h5 class="card-title">Responses</h5>
+                    <ul>
+                        <li>What to do during a seizure</li>
+                        <li>When to call 911</li>
+                        <li>Recovery position</li>
+                        <li>What not to do</li>
+                    </ul>
+                    <div class="d-flex flex-column flex-md-row gap-2 mt-2">
+                        <a href="{{ url_for('video', section='response') }}" class="btn btn-outline-primary">Watch Video</a>
+                        <a href="{{ url_for('infographic', section='response') }}" class="btn btn-outline-secondary">View Infographic</a>
+                        <a href="{{ url_for('cards', section='response') }}" class="btn btn-outline-success">Interactive Cards</a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+{% endblock %}
+

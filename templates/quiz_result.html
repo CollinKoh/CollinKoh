@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container mt-5">
+  <h2 class="mb-4">Quiz Results</h2>
+
+  {% for result in results %}
+    <div class="card mb-3 {% if result.is_correct %}border-success{% else %}border-danger{% endif %}">
+      <div class="card-body">
+        <h5 class="card-title">
+          Q{{ loop.index }}: {{ result.question }}
+        </h5>
+        <p>
+          <strong>Your answer:</strong>
+          <span class="{% if result.is_correct %}text-success{% else %}text-danger{% endif %}">
+            {{ result.user_answer }}
+          </span>
+        </p>
+        {% if not result.is_correct %}
+        <p><strong>Correct answer:</strong> {{ result.correct_answer }}</p>
+        {% endif %}
+      </div>
+    </div>
+  {% endfor %}
+
+  <div class="alert alert-info mt-4">
+    <strong>Score:</strong> {{ score }} out of {{ total }}
+  </div>
+
+  <a href="{{ url_for('quiz') }}" class="btn btn-primary mt-3">Try Again</a>
+</div>
+{% endblock %}
