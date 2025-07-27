@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+
+{% block title %}
+    {% if lang == "en" %}Seizure Videos
+    {% elif lang == "zh" %}癫痫视频
+    {% elif lang == "ms" %}Video Sawan
+    {% elif lang == "ta" %}வலிப்பு வீடியோக்கள்
+    {% else %}Seizure Videos{% endif %}
+{% endblock %}
+
+{% block content %}
+<div class="container py-4">
+    <!-- Language Selector -->
+    <div class="d-flex justify-content-end mb-3">
+        <form method="get" action="{{ url_for('video') }}">
+            <select name="lang" onchange="this.form.submit()" class="form-select">
+                <option value="en" {% if lang == "en" %}selected{% endif %}>English</option>
+                <option value="zh" {% if lang == "zh" %}selected{% endif %}>中文</option>
+                <option value="ms" {% if lang == "ms" %}selected{% endif %}>Bahasa Melayu</option>
+                <option value="ta" {% if lang == "ta" %}selected{% endif %}>தமிழ்</option>
+            </select>
+        </form>
+    </div>
+
+    <!-- Heading -->
+    <h2 class="mb-4">
+        {% if lang == "en" %}Seizure Types - Educational Videos
+        {% elif lang == "zh" %}癫痫类型 - 教育视频
+        {% elif lang == "ms" %}Jenis Sawan - Video Pendidikan
+        {% elif lang == "ta" %}வலிப்பு வகைகள் - கல்வி வீடியோக்கள்
+        {% else %}Seizure Types - Educational Videos{% endif %}
+    </h2>
+
+    <!-- Video Cards -->
+    {% for video in videos %}
+    <div class="mb-5">
+        <h4>{{ video.localized_title }}</h4>
+        <p>{{ video.description }}</p>
+
+        <video width="100%" height="auto" controls>
+            <source src="{{ url_for('static', filename='videos/' + video.filename) }}" type="video/mp4">
+
+            <!-- Multilingual Subtitles -->
+            <track label="English" kind="subtitles" srclang="en"
+                   src="{{ url_for('static', filename='subtitles/' + video.key + '_en.vtt') }}" {% if lang == 'en' %}default{% endif %}>
+            <track label="中文" kind="subtitles" srclang="zh"
+                   src="{{ url_for('static', filename='subtitles/' + video.key + '_zh.vtt') }}" {% if lang == 'zh' %}default{% endif %}>
+            <track label="BM" kind="subtitles" srclang="ms"
+                   src="{{ url_for('static', filename='subtitles/' + video.key + '_ms.vtt') }}" {% if lang == 'ms' %}default{% endif %}>
+            <track label="தமிழ்" kind="subtitles" srclang="ta"
+                   src="{{ url_for('static', filename='subtitles/' + video.key + '_ta.vtt') }}" {% if lang == 'ta' %}default{% endif %}>
+            Your browser does not support the video tag.
+        </video>
+        <hr>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

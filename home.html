@@ -1,0 +1,81 @@
+{% extends "base.html" %}
+
+{% block title %}CareLink - Home{% endblock %}
+
+{% block content %}
+<!-- Hero Image with Logo -->
+<div class="bg-light text-center py-5">
+    <h2 class="mb-3">Welcome to CareLink</h2>
+    <img src="{{ url_for('static', filename='images/carelink_logo.png') }}"
+         alt="CareLink Logo"
+         class="img-fluid"
+         style="max-height: 150px;">
+</div>
+
+<!-- Language Dropdown -->
+<div class="container my-3">
+    <form action="{{ url_for('start_guide') }}" method="get" class="row g-2 justify-content-center align-items-center">
+        <div class="col-auto">
+            <label for="lang" class="form-label fw-bold">Choose Language:</label>
+        </div>
+        <div class="col-auto">
+            <select name="lang" id="lang" class="form-select">
+                <option value="en">English</option>
+                <option value="zh">中文</option>
+                <option value="ms">Bahasa Melayu</option>
+                <option value="ta">தமிழ்</option>
+            </select>
+        </div>
+        <input type="hidden" name="autoplay" value="true">
+        <div class="col-auto">
+            <button type="submit" class="btn btn-primary">Start Emergency Guide</button>
+        </div>
+    </form>
+</div>
+
+<!-- Feature Grid -->
+<div class="container my-5">
+    <div class="row row-cols-1 row-cols-md-2 g-4">
+        <div class="col">
+            <div class="card text-center h-100">
+                <div class="card-body">
+                    <i class="bi bi-journal-code display-5 mb-3"></i>
+                    <h5 class="card-title">Learning</h5>
+                    <p class="card-text">Start Learning</p>
+                    <a href="{{ url_for('learn') }}" class="btn btn-outline-primary">Go to Learning</a>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card text-center h-100">
+                <div class="card-body">
+                    <i class="bi bi-question-circle display-5 mb-3"></i>
+                    <h5 class="card-title">Quiz</h5>
+                    <p class="card-text">Take a Quiz</p>
+                    <a href="{{ url_for('quiz') }}" class="btn btn-outline-success">Start Quiz</a>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card text-center h-100">
+                <div class="card-body">
+                    <i class="bi bi-chat-dots display-5 mb-3"></i>
+                    <h5 class="card-title">Chatbot</h5>
+                    <p class="card-text">Ask the Chatbot</p>
+                    <a href="{{ url_for('chatbot', lang=request.args.get('lang', 'en')) }}" class="btn btn-outline-secondary">Go to Chatbot</a>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card text-center h-100">
+                <div class="card-body">
+                    <i class="bi bi-exclamation-triangle display-5 mb-3 text-danger"></i>
+                    <h5 class="card-title">Emergency Guide</h5>
+                    <p class="card-text">Get Emergency Help</p>
+                    <a href="{{ url_for('start_guide', lang='en', autoplay='true') }}" class="btn btn-danger">Start Guide</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
