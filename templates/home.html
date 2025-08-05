@@ -1,81 +1,182 @@
-{% extends "base.html" %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CareLink Dashboard</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}" />
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      background: #f8fcff;
+    }
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 2rem;
+      background-color: white;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    }
+    .nav-left {
+      display: flex;
+      align-items: center;
+    }
+    .nav-left img {
+      height: 40px;
+      margin-right: 12px;
+    }
+    .nav-links a {
+      margin: 0 1rem;
+      text-decoration: none;
+      color: #333;
+      font-weight: 500;
+    }
+    .nav-links a.active {
+      color: #2a67ff;
+      border-bottom: 2px solid #2a67ff;
+      padding-bottom: 3px;
+    }
+    .nav-right {
+      display: flex;
+      gap: 1rem;
+      align-items: center;
+    }
+    .btn-emergency {
+      background-color: #f44336;
+      color: white;
+      padding: 0.5rem 1rem;
+      border-radius: 8px;
+      font-weight: bold;
+      border: none;
+    }
+    .btn-round {
+      background-color: #2a67ff;
+      color: white;
+      padding: 0.5rem 1.5rem;
+      margin: 0.5rem;
+      border-radius: 10px;
+      border: none;
+      font-weight: bold;
+    }
+    .btn-round.green {
+      background-color: #059669;
+    }
+    .btn-round.purple {
+      background-color: #7c3aed;
+    }
+    .dashboard {
+      text-align: center;
+      padding: 2rem;
+    }
+    .dashboard h1 {
+      font-size: 2rem;
+    }
+    .highlight-name {
+      background: linear-gradient(to right, #2a67ff, #059669);
+      -webkit-background-clip: text;
+      color: transparent;
+    }
+    .overview {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      padding: 2rem;
+      flex-wrap: wrap;
+    }
+    .card {
+      padding: 1.5rem;
+      border-radius: 12px;
+      width: 200px;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+    }
+    .card.green {
+      background-color: #dcfce7;
+      color: #14532d;
+    }
+    .card.blue {
+      background-color: #e0f2fe;
+      color: #1e40af;
+    }
+    .card.purple {
+      background-color: #ede9fe;
+      color: #5b21b6;
+    }
+    .card.orange {
+      background-color: #fff7ed;
+      color: #9a3412;
+    }
+  </style>
+</head>
+<body>
 
-{% block title %}CareLink - Home{% endblock %}
-
-{% block content %}
-<!-- Hero Image with Logo -->
-<div class="bg-light text-center py-5">
-    <h2 class="mb-3">Welcome to CareLink</h2>
-    <img src="{{ url_for('static', filename='images/carelink_logo.png') }}"
-         alt="CareLink Logo"
-         class="img-fluid"
-         style="max-height: 150px;">
-</div>
-
-<!-- Language Dropdown -->
-<div class="container my-3">
-    <form action="{{ url_for('start_guide') }}" method="get" class="row g-2 justify-content-center align-items-center">
-        <div class="col-auto">
-            <label for="lang" class="form-label fw-bold">Choose Language:</label>
-        </div>
-        <div class="col-auto">
-            <select name="lang" id="lang" class="form-select">
-                <option value="en">English</option>
-                <option value="zh">中文</option>
-                <option value="ms">Bahasa Melayu</option>
-                <option value="ta">தமிழ்</option>
-            </select>
-        </div>
-        <input type="hidden" name="autoplay" value="true">
-        <div class="col-auto">
-            <button type="submit" class="btn btn-primary">Start Emergency Guide</button>
-        </div>
-    </form>
-</div>
-
-<!-- Feature Grid -->
-<div class="container my-5">
-    <div class="row row-cols-1 row-cols-md-2 g-4">
-        <div class="col">
-            <div class="card text-center h-100">
-                <div class="card-body">
-                    <i class="bi bi-journal-code display-5 mb-3"></i>
-                    <h5 class="card-title">Learning</h5>
-                    <p class="card-text">Start Learning</p>
-                    <a href="{{ url_for('learn') }}" class="btn btn-outline-primary">Go to Learning</a>
-                </div>
-            </div>
-        </div>
-        <div class="col">
-            <div class="card text-center h-100">
-                <div class="card-body">
-                    <i class="bi bi-question-circle display-5 mb-3"></i>
-                    <h5 class="card-title">Quiz</h5>
-                    <p class="card-text">Take a Quiz</p>
-                    <a href="{{ url_for('quiz') }}" class="btn btn-outline-success">Start Quiz</a>
-                </div>
-            </div>
-        </div>
-        <div class="col">
-            <div class="card text-center h-100">
-                <div class="card-body">
-                    <i class="bi bi-chat-dots display-5 mb-3"></i>
-                    <h5 class="card-title">Chatbot</h5>
-                    <p class="card-text">Ask the Chatbot</p>
-                    <a href="{{ url_for('chatbot', lang=request.args.get('lang', 'en')) }}" class="btn btn-outline-secondary">Go to Chatbot</a>
-                </div>
-            </div>
-        </div>
-        <div class="col">
-            <div class="card text-center h-100">
-                <div class="card-body">
-                    <i class="bi bi-exclamation-triangle display-5 mb-3 text-danger"></i>
-                    <h5 class="card-title">Emergency Guide</h5>
-                    <p class="card-text">Get Emergency Help</p>
-                    <a href="{{ url_for('start_guide', lang='en', autoplay='true') }}" class="btn btn-danger">Start Guide</a>
-                </div>
-            </div>
-        </div>
+  <!-- Navbar -->
+  <div class="navbar">
+    <div class="nav-left">
+      <img src="{{ url_for('static', filename='images/carelink_logo.png') }}" alt="CareLink Logo" />
+      <span style="font-size: 20px; font-weight: 600;">CareLink</span>
     </div>
-</div>
-{% endblock %}
+    <div class="nav-links">
+      <a href="#" class="active">Dashboard</a>
+      <a href="#">Seizure Logger</a>
+      <a href="#">Safety Tracker</a>
+      <a href="http://127.0.0.1:5000/education">Education</a>
+      <a href="#">Alerts</a>
+    </div>
+    <div class="nav-right">
+      <button class="btn-emergency">Emergency</button>
+      <div class="avatar" style="background-color:#2563eb; color:white; padding:0.5rem 0.75rem; border-radius:50%;">JS</div>
+    </div>
+  </div>
+
+  <!-- Welcome Section -->
+  <div class="dashboard">
+    <h1>Welcome back, <span class="highlight-name">Jordan</span></h1>
+    <p>Knowledge is your best medicine. Track your progress, stay informed, and take control of your epilepsy journey.</p>
+
+    <div>
+      <button class="btn-round">+ Log Seizure</button>
+      <button class="btn-round green">✔ Safety Check</button>
+      <button class="btn-round purple">⚠ Emergency</button>
+    </div>
+  </div>
+
+  <!-- Health Overview -->
+  <div class="overview">
+    <div class="card green">
+      <div>
+        <strong>Seizure-Free Days</strong>
+        <div style="font-size: 2rem;">23</div>
+        <p>+2 from last week</p>
+      </div>
+    </div>
+
+    <div class="card blue">
+      <div>
+        <strong>Medication Adherence</strong>
+        <div style="font-size: 2rem;">94%</div>
+        <p>Excellent progress</p>
+      </div>
+    </div>
+
+    <div class="card purple">
+      <div>
+        <strong>Sleep Quality</strong>
+        <div style="font-size: 2rem;">8.2</div>
+        <p>Above average</p>
+      </div>
+    </div>
+
+    <div class="card orange">
+      <div>
+        <strong>Stress Level</strong>
+        <div style="font-size: 2rem;">Low</div>
+        <p>Keep it up!</p>
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>
+
