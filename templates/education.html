@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="{{ user_lang }}">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>CareLink Education Center</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      background-color: #f5f7fa;
+      color: #333;
+    }
+
+    header {
+      background-color: #003366;
+      color: white;
+      padding: 10px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    nav a {
+      color: white;
+      margin: 0 15px;
+      text-decoration: none;
+      font-weight: bold;
+    }
+    .emergency-btn {
+      background-color: red;
+      color: white;
+      padding: 8px 12px;
+      border: none;
+      border-radius: 4px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    .main {
+      padding: 40px 20px;
+      text-align: center;
+    }
+    .main h1 {
+      color: #003366;
+      font-size: 2em;
+    }
+    .main p {
+      font-size: 1.1em;
+      margin-top: 0.5em;
+    }
+    .xp-summary {
+      margin-top: 1em;
+      font-weight: bold;
+      color: #28a745;
+    }
+    .module-section {
+      padding: 20px;
+      background-color: #eaf0f6;
+    }
+    .module-grid {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 20px;
+    }
+    .card {
+      background-color: white;
+      border-radius: 8px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      width: 300px;
+      padding: 20px;
+      text-align: left;
+    }
+    .card h3 {
+      margin-top: 0;
+      color: #003366;
+    }
+    .card p {
+      margin: 8px 0;
+    }
+    .start-btn {
+      background-color: #3498db;
+      color: white;
+      padding: 8px 12px;
+      border: none;
+      border-radius: 4px;
+      font-weight: bold;
+      margin-top: 10px;
+      cursor: pointer;
+    }
+    footer {
+      margin-top: 50px;
+      text-align: center;
+      font-size: 12px;
+      color: #777;
+    }
+  </style>
+</head>
+<body>
+  {% set user_lang = session.get('chat_lang', 'en') %}
+
+  <!-- 🧭 Navigation Bar -->
+  <header>
+    <nav>
+      <a href="{{ url_for('home') }}">Dashboard</a>
+      <a href="#">Seizure Logger</a>
+      <a href="#">Safety Tracker</a>
+      <a href="{{ url_for('education') }}">Education</a>
+      <a href="#">Alerts</a>
+    </nav>
+    <div>
+      <button class="emergency-btn" onclick="location.href='{{ url_for('start_guide', lang=user_lang) }}'">Emergency Guide</button>
+      <select id="lang-select">
+        <option value="en" {% if user_lang == 'en' %}selected{% endif %}>EN</option>
+        <option value="zh" {% if user_lang == 'zh' %}selected{% endif %}>中文</option>
+        <option value="ms" {% if user_lang == 'ms' %}selected{% endif %}>Malay</option>
+        <option value="ta" {% if user_lang == 'ta' %}selected{% endif %}>தமிழ்</option>
+      </select>
+    </div>
+  </header>
+
+  <!-- 📚 Education Center Intro -->
+  <section class="main">
+    {% if user_lang == 'zh' %}
+      <h1>📚 癫痫教育中心</h1>
+      <p>选择一个学习路径，增强您对癫痫应对的信心。</p>
+    {% elif user_lang == 'ms' %}
+      <h1>📚 Pusat Pendidikan Epilepsi</h1>
+      <p>Pilih laluan pembelajaran untuk membina keyakinan anda dalam tindak balas sawan.</p>
+    {% elif user_lang == 'ta' %}
+      <h1>📚 மின்சார நோய் கல்வி மையம்</h1>
+      <p>நோயாளி பதிலளிக்க உங்கள் நம்பிக்கையை உருவாக்க ஒரு கல்வி பாதையைத் தேர்ந்தெடுக்கவும்.</p>
+    {% else %}
+      <h1>📚 Epilepsy Education Center</h1>
+      <p>Choose a learning path to build your confidence in seizure response.</p>
+    {% endif %}
+
+    <div class="xp-summary">
+      You’ve earned <strong>{{ session.get('xp', 0) }}</strong> XP so far!
+    </div>
+  </section>
+
+  <!-- 🧠 Learning Modules -->
+  <section class="module-section">
+    <div class="module-grid">
+      <div class="card">
+        <h3>Interactive Modules</h3>
+        <p>Simulations and guided walkthroughs for different seizure types.</p>
+        <button class="start-btn" onclick="location.href='{{ url_for('learn') }}'">Explore Modules</button>
+      </div>
+      <div class="card">
+        <h3>Quiz Challenge</h3>
+        <p>Test your knowledge and earn XP for correct answers.</p>
+        <button class="start-btn" onclick="location.href='{{ url_for('quiz') }}'">Start Quiz</button>
+      </div>
+      <div class="card">
+        <h3>AI Chatbot</h3>
+        <p>Ask questions and get instant guidance on epilepsy care.</p>
+        <button class="start-btn" onclick="location.href='{{ url_for('chatbot') }}'">Launch Chatbot</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- 📎 Footer -->
+  <footer>
+    © 2025 CareLink Health Support. Accessible worldwide.
+  </footer>
+
+  <!-- 🌐 Language Switcher Script -->
+  <script>
+    document.getElementById('lang-select').addEventListener('change', function () {
+      fetch('/set_chat_lang', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({ lang: this.value })
+      }).then(() => location.reload());
+    });
+  </script>
+</body>
+</html>
