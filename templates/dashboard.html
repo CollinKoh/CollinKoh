@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Your Learning Dashboard</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+  <style>
+    /* Inline fallback styles (optional) */
+    .badge-display {
+      font-size: 1.2em;
+      padding: 0.5em 1em;
+      border-radius: 8px;
+      margin-bottom: 1em;
+      display: inline-block;
+    }
+    .badge-display.starter { background: #ccc; }
+    .badge-display.bronze { background: #cd7f32; color: white; }
+    .badge-display.silver { background: #c0c0c0; }
+    .badge-display.gold { background: #ffd700; }
+    .badge-display.platinum { background: #e5e4e2; }
+
+    .module-progress {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1rem;
+    }
+    .progress-card {
+      border: 1px solid #ddd;
+      padding: 1em;
+      border-radius: 8px;
+      background: #f9f9f9;
+      position: relative;
+    }
+    .progress-card.completed {
+      opacity: 0.6;
+      background: #e0f7fa;
+    }
+    .progress-card.pending {
+      border-left: 4px solid #4caf50;
+    }
+    .start-btn {
+      display: inline-block;
+      margin-top: 0.5em;
+      padding: 0.4em 0.8em;
+      background: #4caf50;
+      color: white;
+      text-decoration: none;
+      border-radius: 4px;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>Your Learning Progress</h1>
+
+    <section class="xp-summary">
+      <p><strong>Total XP:</strong> {{ xp }}</p>
+      <p><strong>Badge Tier:</strong> {{ badge }}</p>
+      <div class="badge-display {{ badge | lower }}">
+        🏅 {{ badge }} Learner
+      </div>
+    </section>
+
+    <section class="module-progress">
+      {% for module in modules %}
+      <div class="progress-card {{ 'completed' if module.completed else 'pending' }}">
+        <h3>{{ module.title }}</h3>
+        <p><strong>Focus:</strong> {{ module.focus }}</p>
+        <p><strong>Duration:</strong> {{ module.duration }}</p>
+        <p><strong>Status:</strong> {{ '✅ Completed' if module.completed else '⏳ Not Started' }}</p>
+        {% if not module.completed %}
+        <a href="{{ url_for('video', module=module.id) }}" class="start-btn">Continue Module</a>
+        {% endif %}
+      </div>
+      {% endfor %}
+    </section>
+  </main>
+</body>
+</html>

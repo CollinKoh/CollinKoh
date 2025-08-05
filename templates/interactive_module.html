@@ -1,0 +1,14 @@
+<h2>Seizure Learning Modules</h2>
+<div class="modules">
+  {% for module in modules %}
+  <article class="card">
+    <h3>{{ module.title }}</h3>
+    <p><b>Mode:</b> {{ module.mode }}</p>
+    <p><b>Duration:</b> {{ module.duration }}</p>
+    <p><b>Focus:</b> {{ module.focus }}</p>
+    <p><b>XP:</b> {{ module.xp }}</p>
+    <p><b>Tags:</b> {{ module.tags | join(', ') }}</p>
+    <a class="start-btn" href="{{ url_for('static', filename='videos/' ~ module.filename) }}" target="_blank">Start Module</a>
+  </article>
+  {% endfor %}
+</div>
