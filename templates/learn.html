@@ -51,8 +51,8 @@
                     </ul>
                     <div class="d-flex flex-column flex-md-row gap-2 mt-2">
                         <a href="{{ url_for('video', section='seizure') }}" class="btn btn-outline-primary">Watch Video</a>
-                        <a href="{{ url_for('infographic', section='seizure') }}" class="btn btn-outline-secondary">View Infographic</a>
-                        <a href="{{ url_for('cards', section='seizure') }}" class="btn btn-outline-success">Interactive Cards</a>
+                        <a href="/static/infographics/info1.png" class="btn btn-outline-secondary" target="_blank" rel="noopener" aria-label="View infographic on seizure types">View Infographic</a>
+                        <a href="/static/infographics/interactive1.png" class="btn btn-outline-success">Interactive Cards</a>
                     </div>
                 </div>
             </div>
@@ -68,8 +68,8 @@
                     </ul>
                     <div class="d-flex flex-column flex-md-row gap-2 mt-2">
                         <a href="{{ url_for('video', section='signs') }}" class="btn btn-outline-primary">Watch Video</a>
-                        <a href="{{ url_for('infographic', section='signs') }}" class="btn btn-outline-secondary">View Infographic</a>
-                        <a href="{{ url_for('cards', section='signs') }}" class="btn btn-outline-success">Interactive Cards</a>
+                        <a href="/static/infographics/info2.png" class="btn btn-outline-secondary" target="_blank" rel="noopener" aria-label="View infographic on signs and symptoms">View Infographic</a>
+                        <a href="/static/infographics/interactive2.png" class="btn btn-outline-success">Interactive Cards</a>
                     </div>
                 </div>
             </div>
@@ -80,14 +80,14 @@
                     <h5 class="card-title">Responses</h5>
                     <ul>
                         <li>What to do during a seizure</li>
-                        <li>When to call 911</li>
+                        <li>When to call 995</li>
                         <li>Recovery position</li>
                         <li>What not to do</li>
                     </ul>
                     <div class="d-flex flex-column flex-md-row gap-2 mt-2">
                         <a href="{{ url_for('video', section='response') }}" class="btn btn-outline-primary">Watch Video</a>
-                        <a href="{{ url_for('infographic', section='response') }}" class="btn btn-outline-secondary">View Infographic</a>
-                        <a href="{{ url_for('cards', section='response') }}" class="btn btn-outline-success">Interactive Cards</a>
+                        <a href="/static/infographics/info3.png" class="btn btn-outline-secondary" target="_blank" rel="noopener" aria-label="View infographic on seizure response">View Infographic</a>
+                        <a href="/static/infographics/interactive3.png" class="btn btn-outline-success">Interactive Cards</a>
                     </div>
                 </div>
             </div>
@@ -96,4 +96,3 @@
     </div>
 </div>
 {% endblock %}
-
